@@ -3,11 +3,12 @@ package com.example.mvvm_sample.viewmodel;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mvvm_sample.model.ISampleModel;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class SampleAndroidViewModelFactory implements ViewModelProvider.Factory {
 
@@ -25,8 +26,18 @@ public class SampleAndroidViewModelFactory implements ViewModelProvider.Factory 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (modelClass.isAssignableFrom(SampleViewModel.class)) {
-            return (T) new SampleViewModel(application, sampleModel);
+        try {
+            if (modelClass.isAssignableFrom(SampleViewModel.class)) {
+                return (T) modelClass.getConstructor(Application.class, ISampleModel.class).newInstance(application, sampleModel);
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

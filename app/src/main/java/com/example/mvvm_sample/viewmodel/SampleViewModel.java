@@ -1,14 +1,24 @@
-package com.example.mvvm_sample.viewModel;
+package com.example.mvvm_sample.viewmodel;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.example.mvvm_sample.model.ISampleModel;
 import com.example.mvvm_sample.model.SampleModel;
 
-public class SampleViewModel extends ViewModel {
+public class SampleViewModel extends AndroidViewModel {
+
+    private ISampleModel sampleModel;
+
+    public SampleViewModel(@NonNull Application application, ISampleModel sampleModel) {
+        super(application);
+        this.sampleModel = sampleModel;
+    }
 
     public MutableLiveData<Integer> value = new MutableLiveData<>();
-    private SampleModel sampleModel = new SampleModel();
 
     public void getValue() {
         sampleModel.getValue(new SampleModel.ICallback() {

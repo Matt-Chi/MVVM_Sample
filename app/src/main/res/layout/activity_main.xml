@@ -15,7 +15,7 @@
         <TextView android:id="@+id/textView_main_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(sampleViewModel.value)}"
+            android:text="@{String.valueOf(sampleViewModel.mutableLiveDataValue)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

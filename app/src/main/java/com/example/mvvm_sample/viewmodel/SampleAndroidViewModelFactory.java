@@ -3,6 +3,7 @@ package com.example.mvvm_sample.viewmodel;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -27,9 +28,9 @@ public class SampleAndroidViewModelFactory implements ViewModelProvider.Factory 
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         try {
-            if (modelClass.isAssignableFrom(SampleViewModel.class)) {
+//            if (modelClass.isAssignableFrom(ISampleViewModel.class)) {
                 return (T) modelClass.getConstructor(Application.class, ISampleModel.class).newInstance(application, sampleModel);
-            }
+//            }
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {

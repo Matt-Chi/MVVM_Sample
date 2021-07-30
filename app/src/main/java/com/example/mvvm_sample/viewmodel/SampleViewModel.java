@@ -18,13 +18,13 @@ public class SampleViewModel extends AndroidViewModel {
         this.sampleModel = sampleModel;
     }
 
-    public MutableLiveData<Integer> value = new MutableLiveData<>();
+    public MutableLiveData<Integer> mutableLiveDataValue = new MutableLiveData<>();
 
     public void getValue() {
         sampleModel.getValue(new SampleModel.ICallback() {
             @Override
             public void onFinish(int value) {
-                SampleViewModel.this.value.postValue(value);
+                mutableLiveDataValue.postValue(value);
             }
         });
 

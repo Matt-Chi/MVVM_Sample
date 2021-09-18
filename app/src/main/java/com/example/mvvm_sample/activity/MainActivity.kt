@@ -11,15 +11,23 @@ import com.example.mvvm_sample.databinding.ActivityMainBinding
 import com.example.mvvm_sample.model.SampleModel
 
 class MainActivity : AppCompatActivity() {
-    val binding: ActivityMainBinding by lazy { DataBindingUtil.setContentView(this, R.layout.activity_main) }
+    private val binding: ActivityMainBinding by lazy {
+        DataBindingUtil.setContentView(
+            this,
+            R.layout.activity_main
+        )
+    }
+    private val viewModel by lazy {
+        ViewModelProvider(
+            this,
+            SampleAndroidViewModelFactory(application, SampleModel())
+        ).get(SampleViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding.lifecycleOwner = this
-        val sampleModel = SampleModel()
-        val sampleAndroidViewModelFactory = SampleAndroidViewModelFactory(application, sampleModel)
-        val viewModel = ViewModelProvider(this, sampleAndroidViewModelFactory).get(
-            SampleViewModel::class.java
-        )
         binding.sampleViewModel = viewModel
+        binding.lifecycleOwner = this
     }
+
 }

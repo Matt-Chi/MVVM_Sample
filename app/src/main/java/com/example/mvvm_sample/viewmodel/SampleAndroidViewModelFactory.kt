@@ -7,7 +7,7 @@ import com.example.mvvm_sample.model.BaseModel
 import java.lang.IllegalArgumentException
 import java.lang.reflect.InvocationTargetException
 
-class SampleAndroidViewModelFactory(val application: Application, val model: BaseModel) : ViewModelProvider.Factory {
+class SampleAndroidViewModelFactory<R: BaseModel>(private val application: Application, private val model: R) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         try {

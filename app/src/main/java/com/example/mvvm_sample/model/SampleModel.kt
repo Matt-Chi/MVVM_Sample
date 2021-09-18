@@ -1,20 +1,21 @@
 package com.example.mvvm_sample.model
 
-import com.example.mvvm_sample.interfaces.Response
-import java.util.concurrent.Executors
+import com.example.mvvm_sample.ApiManager
+import com.example.mvvm_sample.response.PostResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SampleModel : BaseModel() {
-    fun getValue(response: Response<Int>) {
-        Executors.newSingleThreadExecutor().submit {
-
-            // Assume this value is provided by a web api response.
-            val value = 6
-            try {
-                Thread.sleep(3000)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
+    fun getValue(callback: Callback<PostResponse>) {
+        ApiManager.apiService.getPosts().enqueue(object : Callback<PostResponse> {
+            override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {
+                callback.onResponse(call, response)
             }
-            response.onSuccess(value)
-        }
+
+            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+                callback.onFailure(call, t)
+            }
+        })
     }
 }

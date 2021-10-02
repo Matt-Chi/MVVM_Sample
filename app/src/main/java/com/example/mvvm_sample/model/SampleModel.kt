@@ -5,8 +5,9 @@ import com.example.mvvm_sample.response.PostResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class SampleModel : BaseModel() {
+class SampleModel @Inject constructor() : BaseModel() {
     fun getValue(callback: Callback<PostResponse>) {
         ApiManager.apiService.getPosts().enqueue(object : Callback<PostResponse> {
             override fun onResponse(call: Call<PostResponse>, response: Response<PostResponse>) {

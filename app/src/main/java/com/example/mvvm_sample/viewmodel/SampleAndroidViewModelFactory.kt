@@ -3,11 +3,12 @@ package com.example.mvvm_sample.viewmodel
 import androidx.lifecycle.ViewModelProvider
 import android.app.Application
 import androidx.lifecycle.ViewModel
+import com.example.mvvm_sample.MyApplication
 import com.example.mvvm_sample.model.BaseModel
 import java.lang.IllegalArgumentException
 import java.lang.reflect.InvocationTargetException
 
-class SampleAndroidViewModelFactory<R: BaseModel>(private val application: Application, private val model: R) : ViewModelProvider.Factory {
+class SampleAndroidViewModelFactory<R: BaseModel>(private val application: MyApplication, private val model: R) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         try {

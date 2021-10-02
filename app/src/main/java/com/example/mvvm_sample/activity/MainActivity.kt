@@ -1,15 +1,16 @@
 package com.example.mvvm_sample.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.mvvm_sample.R
-import com.example.mvvm_sample.viewmodel.SampleAndroidViewModelFactory
-import com.example.mvvm_sample.viewmodel.SampleViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm_sample.MyApplication
+import com.example.mvvm_sample.R
+import com.example.mvvm_sample.adapter.ArticleAdapter
 import com.example.mvvm_sample.databinding.ActivityMainBinding
 import com.example.mvvm_sample.model.SampleModel
+import com.example.mvvm_sample.viewmodel.SampleAndroidViewModelFactory
+import com.example.mvvm_sample.viewmodel.SampleViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,11 +27,18 @@ class MainActivity : AppCompatActivity() {
             SampleAndroidViewModelFactory(MyApplication(), SampleModel())
         ).get(SampleViewModel::class.java)
     }
+    private val adapter by lazy {
+        ArticleAdapter(this, viewModel)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.sampleViewModel = viewModel
         binding.lifecycleOwner = this
+        binding.lvArticleList.adapter = adapter
+        viewModel.postResponse.observe(this, {
+            adapter.notifyDataSetChanged()
+        })
     }
 
 }

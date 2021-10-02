@@ -1,6 +1,5 @@
 package com.example.mvvm_sample.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.example.mvvm_sample.MyApplication
 import com.example.mvvm_sample.model.SampleModel
@@ -14,21 +13,25 @@ import javax.inject.Inject
 @HiltViewModel
 class SampleViewModel @Inject constructor(application: MyApplication, sampleModel: SampleModel) :
     BaseViewModel<SampleModel>(application, sampleModel) {
-    var mutableLiveDataValue = MutableLiveData<String>()
+    var postResponse = MutableLiveData<PostResponse>()
 
-    val value: Unit
-        get() {
-            model.getValue(object : Callback<PostResponse> {
-                override fun onResponse(
-                    call: Call<PostResponse>,
-                    response: Response<PostResponse>
-                ) {
-                    mutableLiveDataValue.postValue(response.body()?.get(0)?.body)
-                }
+    fun getData() {
+        model.getValue(object : Callback<PostResponse> {
+            override fun onResponse(
+                call: Call<PostResponse>,
+                response: Response<PostResponse>
+            ) {
+                postResponse.value = response.body()
+            }
 
-                override fun onFailure(call: Call<PostResponse>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
-            })
-        }
+            override fun onFailure(call: Call<PostResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    fun setNewId(id: Int) {
+        postResponse.value?.get(0)?.id = id
+        postResponse.postValue(postResponse.value)
+    }
 }

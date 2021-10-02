@@ -12,25 +12,35 @@
         android:layout_height="match_parent"
         tools:context=".activity.MainActivity">
 
-        <TextView android:id="@+id/textView_main_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{sampleViewModel.mutableLiveDataValue}"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <ListView
+            android:id="@+id/lv_article_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_get_list"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button_main_getData"
+            android:id="@+id/button_get_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
-            android:onClick="@{() -> sampleViewModel.value}"
+            android:layout_marginBottom="50dp"
+            android:onClick="@{() -> sampleViewModel.getData()}"
+            android:text="get list"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_main_msg" />
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:onClick="@{() -> sampleViewModel.setNewId(110)}"
+            android:text="update"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

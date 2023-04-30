@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationTargetException
 
 class SampleAndroidViewModelFactory<R: BaseModel>(private val application: MyApplication, private val model: R) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         try {
 //            if (modelClass.isAssignableFrom(ISampleViewModel.class)) {
             return modelClass.getConstructor(application::class.java, model::class.java)

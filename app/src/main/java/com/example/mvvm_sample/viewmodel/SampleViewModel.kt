@@ -1,6 +1,7 @@
 package com.example.mvvm_sample.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.example.mvvm_sample.MyApplication
 import com.example.mvvm_sample.model.SampleModel
 import com.example.mvvm_sample.response.PostResponse
@@ -14,6 +15,11 @@ import javax.inject.Inject
 class SampleViewModel @Inject constructor(application: MyApplication, sampleModel: SampleModel) :
     BaseViewModel<SampleModel>(application, sampleModel) {
     var postResponse = MutableLiveData<PostResponse>()
+
+    //map extension可以將一個LiveData轉換為另一個LiveData
+    val empty = postResponse.map() {
+        it.isEmpty()
+    }
 
     fun getData() {
         model.getValue(object : Callback<PostResponse> {
